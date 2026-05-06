@@ -1,0 +1,100 @@
+<div class="login-container">
+
+  <div class="login-box">
+    <h2>Create Account</h2>
+
+    <form [formGroup]="form" (ngSubmit)="signup()">
+
+      <!-- EMAIL -->
+      <input type="email" formControlName="email" placeholder="Email">
+
+      <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
+        <small *ngIf="form.get('email')?.errors?.['required']">Email required</small>
+        <small *ngIf="form.get('email')?.errors?.['email']">Invalid email</small>
+      </div>
+
+      <!-- SEND OTP -->
+      <button type="button" (click)="sendOtp()" *ngIf="!otpSent" [disabled]="isSendingOtp">
+        Send OTP
+      </button>
+
+      <!-- OTP -->
+      <div *ngIf="otpSent">
+
+
+        <input type="text" formControlName="otp" placeholder="Enter OTP">
+
+        <div *ngIf="form.get('otp')?.touched && form.get('otp')?.invalid">
+          <small>OTP required</small>
+        </div>
+
+        <button type="button" (click)="verifyOtp()" [disabled]="isVerifyingOtp || otpVerified">
+          {{ otpVerified ? 'Verified ✅' : 'Verify OTP' }}
+        </button>
+
+      </div>
+
+      <!-- AFTER OTP VERIFIED -->
+      <div *ngIf="otpVerified">
+
+        <!-- NAME -->
+        <input type="text" formControlName="name" placeholder="Full Name">
+
+        <div *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
+          <small>Name must be at least 3 characters</small>
+        </div>
+
+        <!-- PHONE -->
+        <input type="text" formControlName="phone" placeholder="Phone" maxlength="10"
+          (input)="form.get('phone')?.markAsTouched()">
+
+        <div *ngIf="form.get('phone')?.invalid && form.get('phone')?.touched">
+
+          <small *ngIf="form.get('phone')?.errors?.['required']">
+            Phone required
+          </small>
+
+          <small *ngIf="form.get('phone')?.errors?.['pattern']">
+            Enter valid 10-digit phone number
+          </small>
+
+        </div>
+
+        <!-- ADDRESS -->
+        <input type="text" formControlName="address" placeholder="Address">
+
+        <div *ngIf="form.get('address')?.touched && form.get('address')?.invalid">
+          <small>Address required</small>
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="password-box">
+          <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Password">
+
+          <span class="eye" (click)="togglePassword()">
+            <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </span>
+        </div>
+
+        <div *ngIf="form.get('password')?.touched && form.get('password')?.invalid">
+          <small>Password must contain Capital, Number (min 6)</small>
+        </div>
+
+        <!-- SIGNUP -->
+        <button type="button" (click)="signup()" [disabled]="form.invalid">
+          Signup
+        </button>
+
+      </div>
+
+    </form>
+
+    <!-- LOGIN LINK -->
+    <p class="signup-text">
+      Already have an account?
+      <a routerLink="/login">Login</a>
+    </p>
+
+  </div>
+
+</div>

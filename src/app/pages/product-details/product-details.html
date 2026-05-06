@@ -1,0 +1,29 @@
+<div class="details" *ngIf="product; else loading">
+
+  <img [src]="product?.image">
+
+  <div class="info">
+    <h2>{{product.name}}</h2>
+
+    <p class="price">₹ {{product.price}}</p>
+
+    <p class="stock" *ngIf="product.stock > 0">✔ In Stock</p>
+    <p class="out" *ngIf="product.stock == 0">❌ Out of Stock</p>
+
+
+    <button *ngIf="product.stock > 0" (click)="addToCart()">Add to Cart</button>
+
+
+    <button *ngIf="product.stock == 0" (click)="notify()">
+      Notify Me
+    </button>
+
+
+
+  </div>
+
+</div>
+
+<ng-template #loading>
+  <h2>Loading product.....</h2>
+</ng-template>

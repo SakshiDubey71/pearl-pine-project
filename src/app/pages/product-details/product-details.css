@@ -1,0 +1,35 @@
+.details{
+  display:flex;
+  gap:40px;
+  padding:40px;
+}
+
+.details img{
+  width:350px;
+  border-radius:10px;
+}
+
+.info{
+  max-width:400px;
+}
+
+.price{
+  font-size:22px;
+  margin:10px 0;
+}
+
+.stock{
+  color:green;
+}
+
+.out{
+  color:red;
+}
+
+button{
+  padding:12px 20px;
+  background:black;
+  color:white;
+  border:none;
+  margin-top:15px;
+}

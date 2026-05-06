@@ -1,0 +1,33 @@
+<div class="container">
+
+  <div class="top-bar">
+    <input [(ngModel)]="searchText" placeholder=" Search chocolates..." class="search-box">
+  </div>
+  <div class="top-bar1">
+    <select (change)="filter($event)" class="sort">
+      <option value="">Sort</option>
+      <option value="low">Price Low → High</option>
+      <option value="high">Price High → Low</option>
+    </select>
+  </div>
+  <div class="product-grid">
+    <app-product-card *ngFor="let item of filteredProducts" [item]="item">
+    </app-product-card>
+  </div>
+  
+<footer class="footer">
+  <h3>Pearl & Pine</h3>
+
+  <p>Premium Chocolates Crafted with Love 🍫</p>
+
+  <div class="links">
+    <a href="#">Instagram</a>
+    <a href="#">WhatsApp</a>
+    <a href="#">Contact</a>
+  </div>
+
+  <p class="copy">© 2026 Pearl & Pine</p>
+</footer>
+
+
+</div>

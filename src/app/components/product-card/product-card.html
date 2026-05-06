@@ -1,0 +1,27 @@
+<div class="card" (click)="viewDetails()">
+
+  <img [src]="item.image">
+
+  <h3>{{item.name}}</h3>
+
+  <p class="price">₹ {{item.price}}</p>
+
+  <!-- Stock -->
+  <p class="stock" *ngIf="item.stock > 0">In Stock</p>
+  <p class="out" *ngIf="item.stock == 0">Out of Stock</p>
+
+  
+    <button *ngIf="item.stock > 0" (click)="addToCart()">Add to Cart</button>
+
+    <button *ngIf="item.stock == 0" (click)="notify()">
+      Notify Me
+    </button>
+
+
+
+ <!-- <button (click)="addToCart(); $event.stopPropagation()">
+    Add to Cart
+  </button> -->
+
+</div>
+

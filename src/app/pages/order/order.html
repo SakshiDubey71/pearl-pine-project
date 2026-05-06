@@ -1,0 +1,31 @@
+<div class="order-container">
+
+  <h2>My Orders 📦</h2>
+
+  <!-- Loader -->
+  <div *ngIf="loading" class="loading">Loading orders...</div>
+
+  <!-- No Orders -->
+  <div *ngIf="!loading && orders.length === 0" class="empty">
+    No orders found 😢
+  </div>
+
+  <!-- Orders List -->
+  <div *ngIf="orders.length > 0" class="order-list">
+
+    <div class="order-card" *ngFor="let item of orders">
+
+      <h3>{{item.productName}}</h3>
+
+      <p> Price: ₹{{item.price}}</p>
+      <p> Quantity: {{item.quantity}}</p>
+      <p> Total: ₹{{getItemTotal(item)}}</p>
+      <p>Date: {{item.orderDate | date:'medium'}}</p>
+
+      <span class="status">Processing</span>
+
+    </div>
+
+  </div>
+
+</div>

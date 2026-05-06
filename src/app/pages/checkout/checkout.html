@@ -1,0 +1,19 @@
+<div class="checkout-container">
+
+  <h2>Checkout </h2>
+
+  <div class="summary">
+<div *ngFor="let item of cartItems" class="item">
+      <p>{{item.name}}</p>
+      <p>₹{{item.price}} × {{item.quantity}}</p>
+    </div>
+
+    <hr>
+
+    <h3>Total: ₹{{totalAmount}}</h3>
+
+  </div>
+
+  <button (click)="pay()">Pay Now</button>
+
+</div>
