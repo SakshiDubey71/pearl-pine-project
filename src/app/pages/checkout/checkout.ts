@@ -53,7 +53,7 @@ pay() {
         quantity: item.quantity
       }));
 
-      this.http.post('https://localhost:7167/api/Order/PlaceOrder', orderData)
+      this.http.post('https://pearl-pine-backend.onrender.com/api/Order/PlaceOrder', orderData)
         .subscribe(() => {
           alert("Payment Successful & Order Saved");
           this.cart.clearCart();

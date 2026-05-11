@@ -17,15 +17,27 @@ saveCart(){
 
 
 addToCart(item: any){
+
   let existing = this.cartItems.find(x => x.id === item.id);
 
-  if(existing){
-    existing.quantity += 1;   // ✅ increase if already exists
-  } else {
-    item.quantity = 1;
-    this.cartItems.push(item);
+  if(existing)
+  {
+      if(existing.quantity < existing.stock)
+      {
+         existing.quantity += 1;
+      }
+      else
+      {
+         alert("Stock limit reached");
+      }
   }
-  this.saveCart();
+  else
+  {
+      item.quantity = 1;
+      this.cartItems.push(item);
+  }
+    this.saveCart();
+
 }
 
 getTotalPrice(){
@@ -40,6 +52,9 @@ getTotalPrice(){
   this.saveCart();
  }
  clearCart() {
+
+  this.cartItems = [];
+
   localStorage.removeItem('cart');
 }
 }

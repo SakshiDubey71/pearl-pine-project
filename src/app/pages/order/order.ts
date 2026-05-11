@@ -25,7 +25,7 @@ export class Order {
 
   let user = JSON.parse(localStorage.getItem('user') || '{}');
 
-  this.http.get(`https://localhost:7167/api/Order/GetOrders/${user.email}`)
+  this.http.get(`https://pearl-pine-backend.onrender.com/api/Order/GetOrders/${user.email}`)
     .subscribe({
       next: (res: any) => {
         this.orders = res;

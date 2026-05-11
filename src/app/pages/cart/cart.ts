@@ -33,15 +33,31 @@ export class Cart {
 
 
 increase(item: any){
-  item.quantity++;
-  this.cartItems = this.cartServices.getCart();
-}
 
-decrease(item: any){
-  if(item.quantity > 1){
-    item.quantity--;
-     this.total = this.cartServices.getTotalPrice();
+  if(item.quantity < item.stock)
+  {
+    item.quantity++;
+    this.total = this.cartServices.getTotalPrice();
+
+    localStorage.setItem('cart', JSON.stringify(this.cartItems));
   }
+  else
+  {
+    alert("Only " + item.stock + " items available in stock");
+  }
+
+}
+decrease(item: any){
+
+  if(item.quantity > 1)
+  {
+    item.quantity--;
+
+    this.total = this.cartServices.getTotalPrice();
+
+    localStorage.setItem('cart', JSON.stringify(this.cartItems));
+  }
+
 }
 
  goToCheckout(){

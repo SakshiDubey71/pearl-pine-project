@@ -112,7 +112,7 @@ export class Signup {
 
     this.isSendingOtp = true;
 
-    this.http.post<any>('https://localhost:7167/api/User/SendOtp', {
+    this.http.post<any>('https://pearl-pine-backend.onrender.com/api/User/SendOtp', {
       email: this.form.value.email
     }).subscribe({
       next: (res) => {
@@ -139,7 +139,7 @@ export class Signup {
     }
     this.isVerifyingOtp = true;
 
-    this.http.post<any>('https://localhost:7167/api/User/VerifyOtp', {
+    this.http.post<any>('https://pearl-pine-backend.onrender.com/api/User/VerifyOtp', {
       email: this.form.value.email,
       otp: this.form.value.otp
     }).subscribe({

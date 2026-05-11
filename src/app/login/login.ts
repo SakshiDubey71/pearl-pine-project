@@ -50,7 +50,7 @@ export class Login {
     password: this.form.value.password
   };
 
-  this.http.post<any>('https://localhost:7167/api/User/Login', data)
+  this.http.post<any>('https://pearl-pine-backend.onrender.com/api/User/Login', data)
     .subscribe({
       next: (res) => {
         alert(res.message);

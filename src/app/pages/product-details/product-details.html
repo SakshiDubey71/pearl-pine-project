@@ -11,12 +11,23 @@
     <p class="out" *ngIf="product.stock == 0">❌ Out of Stock</p>
 
 
-    <button *ngIf="product.stock > 0" (click)="addToCart()">Add to Cart</button>
-
+      <button *ngIf="product.stock > 0" (click)="addToCart()">Add to Cart</button>
+    
 
     <button *ngIf="product.stock == 0" (click)="notify()">
       Notify Me
     </button>
+     
+    <div class="related-section">
+    <h2>Related Products</h2>
+    <div class="related-products">
+      <app-product-card
+        *ngFor="let item of relatedProducts"
+        [item]="item" ></app-product-card>
+      
+    </div>
+    </div>
+  
 
 
 

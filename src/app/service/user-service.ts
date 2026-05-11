@@ -6,7 +6,7 @@ import { UserModel } from '../Model/user-model';
   providedIn: 'root',
 })
 export class UserService {
-  apiUrl ='https://localhost:7167/api/User';
+  apiUrl ='https://pearl-pine-backend.onrender.com/api/User';
   constructor(private http : HttpClient){}
 
   signupService(data : UserModel) : Observable<UserModel>{
@@ -18,9 +18,9 @@ loginService(data : UserModel): Observable<UserModel>{
 }
 
 getProducts(){
-  return this.http.get<any>('https://localhost:7167/api/Product/GetProducts');
+  return this.http.get<any>('https://pearl-pine-backend.onrender.com/api/Product/GetProducts');
 }
 notifyUser(data:any){
-  return this.http.post('https://localhost:7167/api/Notify', data);
+  return this.http.post('https://pearl-pine-backend.onrender.com/api/Notify', data);
 }
 }
