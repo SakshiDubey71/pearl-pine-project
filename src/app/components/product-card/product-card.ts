@@ -28,23 +28,30 @@ viewDetails(){
   this.router.navigate(['/product',this.item.id]);
 }
 notify(){
-  alert("You will be notified when product is available");
 
-  let user = JSON.parse(localStorage.getItem('user') || 'null');
+  let user = JSON.parse(
+    localStorage.getItem('user') || 'null'
+  );
 
   if(!user){
     alert("Please login first");
     return;
   }
 
-  this.userService.notifyUser({
-    email: user.email,
-    productId: this.item.id
-  }).subscribe(()=>{
-   // alert("You will be notified when available");
+  let notify = JSON.parse(
+    localStorage.getItem('notify') || '[]'
+  );
+
+  notify.push({
+    email:user.email,
+    productId:this.item.id
   });
 
+  localStorage.setItem(
+    'notify',
+    JSON.stringify(notify)
+  );
 
-
+  alert("You will be notified");
 }
 }

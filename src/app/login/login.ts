@@ -40,27 +40,28 @@ export class Login {
 
  login() {
 
-  if (this.form.invalid) {
-    this.form.markAllAsTouched();
-    return;
+ 
+  let user = JSON.parse(
+    localStorage.getItem('user') || '{}'
+  );
+
+  if(
+    this.form.value.email == user.email &&
+    this.form.value.password == user.password
+  ){
+
+    alert("Login Successful");
+
+    localStorage.setItem(
+      'user',
+      JSON.stringify(user)
+    );
+
+    this.router.navigate(['/home']);
   }
-
-  const data = {
-    email: this.form.value.email,
-    password: this.form.value.password
-  };
-
-  this.http.post<any>('https://pearl-pine-backend.onrender.com/api/User/Login', data)
-    .subscribe({
-      next: (res) => {
-        alert(res.message);
-        localStorage.setItem("user", JSON.stringify(res.user));
-        this.router.navigate(['/home']);
-      },
-      error: (err) => {
-        alert(err.error.message);
-      }
-    });
+  else{
+    alert("Invalid Email or Password");
+  }
 }
 
   togglePassword() {

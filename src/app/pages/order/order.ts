@@ -23,20 +23,13 @@ export class Order {
 
  ngOnInit() {
 
-  let user = JSON.parse(localStorage.getItem('user') || '{}');
+  this.orders = JSON.parse(
+    localStorage.getItem('orders') || '[]'
+  );
 
-  this.http.get(`https://pearl-pine-backend.onrender.com/api/Order/GetOrders/${user.email}`)
-    .subscribe({
-      next: (res: any) => {
-        this.orders = res;
-        this.loading = false;
-      },
-      error: () => {
-        this.loading = false;
-      }
-    });
-
+  this.loading = false;
 }
+
   getItemTotal(item: any) {
     return item.price * item.quantity;
   }

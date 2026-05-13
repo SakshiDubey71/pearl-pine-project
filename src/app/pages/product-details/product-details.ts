@@ -55,23 +55,36 @@ ngOnInit() {
 
 }
   notify(){
-  let user = JSON.parse(localStorage.getItem('user') || 'null');
+
+  let user = JSON.parse(
+    localStorage.getItem('user') || 'null'
+  );
 
   if(!user){
     alert("Please login first");
     return;
   }
 
-  this.userService.notifyUser({
-    email: user.email,
-    productId: this.product.id
-  }).subscribe(()=>{
-    alert("Notification Saved");
+  let notifications = JSON.parse(
+    localStorage.getItem('notify') || '[]'
+  );
+
+  notifications.push({
+    email:user.email,
+    productId:this.product.id
   });
+
+  localStorage.setItem(
+    'notify',
+    JSON.stringify(notifications)
+  );
+
+  alert("Notification Saved");
 }
 addToCart(){
 
   this.cartServices.addToCart(this.product);
-  console.log("Added:", this.product); // alert remove
+
+  alert("Added To Cart");
 }
 }

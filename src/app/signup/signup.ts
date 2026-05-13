@@ -64,26 +64,27 @@ export class Signup {
 
   signup() {
 
-    if (!this.otpVerified) {
-      alert("Verify OTP first ⚠️");
-      return;
-    }
-
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-
-    this.userService.signupService(this.form.getRawValue())
-      .subscribe({
-        next: (res: any) => {
-          alert(res.message);  // ✅ IMPORTANT FIX
-        },
-        error: () => {
-          alert("Signup failed ❌");
-        }
-      });
+  if (!this.otpVerified) {
+    alert("Verify OTP first ⚠️");
+    return;
   }
+
+  if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
+  }
+
+  localStorage.setItem(
+    'user',
+    JSON.stringify(this.form.getRawValue())
+  );
+
+  alert("Signup Successful");
+
+  this.router.navigate(['/login']);
+}
+
+
   togglePassword() {
     this.showPassword = !this.showPassword;
   }
@@ -101,80 +102,50 @@ export class Signup {
 
   sendOtp() {
 
-    if (this.isSendingOtp) return;
+  this.serverOtp =
+    Math.floor(1000 + Math.random() * 9000).toString();
 
-    if (this.form.get('email')?.invalid) {
-      this.form.get('email')?.markAsTouched();
-      return;
-    }
+  alert("Your OTP is: " + this.serverOtp);
 
-    this.otpSent = true;
+  this.otpSent = true;
+}
+  
+verifyOtp() {
 
-    this.isSendingOtp = true;
+  if(this.form.value.otp == this.serverOtp){
 
-    this.http.post<any>('https://pearl-pine-backend.onrender.com/api/User/SendOtp', {
-      email: this.form.value.email
-    }).subscribe({
-      next: (res) => {
-        alert(res.message);
-        this.isSendingOtp = false;
-      },
-      error: () => {
-        alert("Error sending OTP");
-        this.isSendingOtp = false;
-        this.otpSent = false; // rollback if error
-      }
-    });
+    alert("OTP Verified");
+
+    this.otpVerified = true;
+
+    this.form.get('name')?.setValidators([
+      Validators.required,
+      Validators.minLength(3)
+    ]);
+
+    this.form.get('password')?.setValidators([
+      Validators.required,
+      Validators.minLength(6),
+      Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9]).{6,}$/)
+    ]);
+
+    this.form.get('phone')?.setValidators([
+      Validators.required,
+      Validators.pattern(/^[0-9]{10}$/)
+    ]);
+
+    this.form.get('address')?.setValidators([
+      Validators.required
+    ]);
+
+    this.form.get('name')?.updateValueAndValidity();
+    this.form.get('password')?.updateValueAndValidity();
+    this.form.get('phone')?.updateValueAndValidity();
+    this.form.get('address')?.updateValueAndValidity();
+
   }
-
-
-
-  verifyOtp() {
-
-    if (this.isVerifyingOtp) return;
-
-    if (!this.form.value.otp) {
-      alert("Enter OTP");
-      return;
-    }
-    this.isVerifyingOtp = true;
-
-    this.http.post<any>('https://pearl-pine-backend.onrender.com/api/User/VerifyOtp', {
-      email: this.form.value.email,
-      otp: this.form.value.otp
-    }).subscribe({
-      next: (res) => {
-        alert(res.message);
-        Promise.resolve().then(() => {
-          console.log("API RESPONSE:", res);
-
-          this.otpVerified = true;  // 🔥 move here
-          this.cd.detectChanges();
-          this.form.get('name')?.setValidators([Validators.required, Validators.minLength(3)]);
-          this.form.get('password')?.setValidators([
-            Validators.required,
-            Validators.minLength(6),
-            Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9]).{6,}$/)
-          ]);
-          this.form.get('phone')?.setValidators([
-            Validators.required,
-            Validators.pattern(/^[0-9]{10}$/)
-          ]);
-          this.form.get('address')?.setValidators([Validators.required]);
-
-          this.form.get('name')?.updateValueAndValidity();
-          this.form.get('password')?.updateValueAndValidity();
-          this.form.get('phone')?.updateValueAndValidity();
-          this.form.get('address')?.updateValueAndValidity();
-        });
-        this.isVerifyingOtp = false;
-        console.log("otpVerified:", this.otpVerified);
-      },
-      error: () => {
-        alert("Wrong OTP");
-        this.isVerifyingOtp = false;
-        this.otpVerified = false; // rollback
-      }
-    });
+  else{
+    alert("Wrong OTP");
   }
+}
 }

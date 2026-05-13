@@ -19,8 +19,10 @@ loginService(data : UserModel): Observable<UserModel>{
 
 getProducts(){
   return this.http.get<any>('https://pearl-pine-backend.onrender.com/api/Product/GetProducts');
+  //return this.http.get<any>('http://localhost:8080/api/Product/GetProducts');
 }
 notifyUser(data:any){
   return this.http.post('https://pearl-pine-backend.onrender.com/api/Notify', data);
+  //return this.http.post('http://localhost:8080/api/Notify', data);
 }
 }
