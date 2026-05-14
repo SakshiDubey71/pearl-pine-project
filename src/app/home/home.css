@@ -13,7 +13,6 @@
 
   gap:20px;
 
-  width:100%;
 }
 
 .search-box{
@@ -70,19 +69,6 @@ body, html {
 
 @media(max-width:768px){
 
-  .container{
-    padding:15px;
-  }
-
-  .search-box{
-    width:100%;
-  }
-
-  .top-bar1{
-    flex-direction:column;
-    align-items:stretch;
-    gap:10px;
-  }
 
   .product-grid{
     grid-template-columns:repeat(2,1fr);
