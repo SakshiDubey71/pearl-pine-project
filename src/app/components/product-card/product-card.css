@@ -81,12 +81,8 @@
 
 @media(max-width:768px){
 
-  .card{
-    width: 49%;
-  }
-
   .card img{
-    height:170px;
+    height:140px;
   }
 
   .card-body{
@@ -94,13 +90,16 @@
   }
 
   .card-body h3{
-    font-size:16px;
-    min-height:50px;
-    line-height: 1.3;
+    font-size:14px;
+    min-height:45px;
+  }
+
+  .price{
+    font-size:14px;
   }
 
   .card-body button{
+    font-size:13px;
     padding:10px;
-    font-size:14px;
   }
 }
