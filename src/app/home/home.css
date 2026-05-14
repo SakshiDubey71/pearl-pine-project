@@ -72,10 +72,9 @@ body,html{
     padding:12px;
   }
 
-  .product-grid{
-    gap:14px;
-    justify-content:center;
-  }
+ .product-grid{
+  justify-content:space-between;
+}
 
   .search-box{
     width:100%;
