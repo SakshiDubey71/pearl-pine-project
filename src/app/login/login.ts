@@ -57,7 +57,7 @@ export class Login {
       JSON.stringify(user)
     );
 
-    this.router.navigate(['/home']);
+    window.location.href='/home';
   }
   else{
     alert("Invalid Email or Password");
